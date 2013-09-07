@@ -1,0 +1,7 @@
+## Interface: 50300
+## Title: |cff1784d1ElvUI |r|cffFFFFFFClassTimer|r
+## Author: Kryso (for ElvUI modified by minim)
+## Version: 1.0
+## RequiredDeps: ElvUI
+
+core.lua
