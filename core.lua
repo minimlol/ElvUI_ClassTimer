@@ -94,10 +94,9 @@ local TENTHS_TRESHOLD = 2
 
 -- Trinket filter - mostly for trinket procs, delete or wrap into comment block --[[  ]] if you dont want to track those
 local TRINKET_FILTER = {
-		
-		CreateSpellEntry( 2825, true ), CreateSpellEntry( 32182, true ), CreateSpellEntry( 80353, true), -- Bloodlust/Heroism/Timewarp
-		CreateSpellEntry( 90355, true ), -- Ancient Hysteria, bloodlust from hunters pet
-		CreateSpellEntry( 57933 ), -- Tricks of Trade (15% dmg buff)
+		CreateSpellEntry( 2825, true ), CreateSpellEntry( 32182, true ), CreateSpellEntry( 80353, true), CreateSpellEntry( 90355, true ), -- Bloodlust/Heroism/Timewarp/Ancient Hysteria
+		CreateSpellEntry( 57933, true ), -- Tricks of Trade (15% dmg buff)
+		CreateSpellEntry( 31821, true ), -- Devotion Aura
 		
 		-- Professions
         CreateSpellEntry( 121279 ), -- Lifeblood 
@@ -105,12 +104,7 @@ local TRINKET_FILTER = {
 		CreateSpellEntry( 96230 ), -- Synapse Springs (Engineering)
 
 		-- Racials
-		CreateSpellEntry( 20954 ), -- Stoneform (Dwarf)
-		CreateSpellEntry( 59752 ), -- Every Man for Himself (Human)
-		CreateSpellEntry( 57901 ), -- Gift of the Naaru (Draenei)
 		CreateSpellEntry( 68992 ), -- Darkflight (Worgen)
-		CreateSpellEntry( 7744 ), -- Will of the Forsaken (Undead)
-		CreateSpellEntry( 20577 ), -- Cannibalize (Undead)
 		CreateSpellEntry( 26297 ), -- Berserking (Troll)
 		CreateSpellEntry( 20572 ), -- Blood Fury for Attack Power (Orc)
 		CreateSpellEntry( 33702 ), -- Blood Fury for Spell Power (Orc)
@@ -119,8 +113,8 @@ local TRINKET_FILTER = {
 		-- Trinkets (MoP)
 		CreateSpellEntry( 126582 ), -- Lei Shen's Final Orders
 		CreateSpellEntry( 128984 ), -- Relic of Xuen (Agility)
-		CreateSpellEntry( 128985 ), -- Relic of Yu'lon
 		CreateSpellEntry( 128986 ), -- Relic of Xuen (Strength)
+		CreateSpellEntry( 128985 ), -- Relic of Yu'lon
 		CreateSpellEntry( 128987 ), -- Relic of Chi Ji
 		CreateSpellEntry( 126657 ), -- Darkmist Vortex
 		CreateSpellEntry( 126659 ), -- Essence of Terror
@@ -133,9 +127,12 @@ local TRINKET_FILTER = {
 		CreateSpellEntry( 138963 ), -- Unerring Vision of Lei Shen
 		CreateSpellEntry( 138958 ), -- Spark of Zandalar
 		CreateSpellEntry( 138702 ), -- Brutal Talisman of the Shado-Pan Assault
-		CreateSpellEntry( 146184 ), -- Black Blood of Y'Shaarj 
+		CreateSpellEntry( 146184 ), -- Black Blood of Y'Shaarj (duration)
 		CreateSpellEntry( 146202 ), -- Black Blood of Y'Shaarj (stacks)
-		CreateSpellEntry( 145085 ), -- Warlock demonology 2t16
+		CreateSpellEntry( 146046 ), -- Purified Bindings of Immerseus
+		CreateSpellEntry( 148906 ), -- Kardis's Toxic Totem
+		CreateSpellEntry( 148897 ), -- Frenzied Crystal of Rage
+		CreateSpellEntry( 146218 ), -- Yu'lon's Bite
 	};
 	
 --[[ Class specific filters
@@ -185,7 +182,7 @@ local CLASS_FILTERS = {
 			},
 			player = {
 				CreateSpellEntry( 124081 ), -- Zensphere
-				CreateSpellEntry( 125195 ), -- Tigereye Brew
+				CreateSpellEntry( 125195 ), -- Tigereye Brew (stacks)
 				CreateSpellEntry( 125359 ), -- Tiger Power
 				CreateSpellEntry( 115307 ), -- Shuffle
 				CreateSpellEntry( 118636 ), -- Power Guard 
@@ -556,9 +553,14 @@ local CLASS_FILTERS = {
 				CreateSpellEntry( 104232 ), -- Rain of Fire (green)
 				CreateSpellEntry( 122355 ), -- Molten Core
 				CreateSpellEntry( 140074 ), -- Molten Core (green)
+				CreateSpellEntry( 104773 ), -- Unending Resolve
+				CreateSpellEntry( 108508 ), -- Mannoroth's Fury
 			},
 			procs = {
-				CreateSpellEntry( 34936 ), -- Backlash				
+				CreateSpellEntry( 34936 ), -- Backlash
+				CreateSpellEntry( 145085 ), -- 2t16 demo
+				CreateSpellEntry( 145075 ), -- 2t16 destro
+				CreateSpellEntry( 145164 ), -- 4t16 destro
 			},
 		},
 		WARRIOR = { 
@@ -1166,22 +1168,6 @@ do
 		background:SetPoint( "BOTTOMRIGHT", result, "BOTTOMRIGHT", 0, -1 );
 		background:SetVertexColor( 0.15, 0.15, 0.15 );
 		result.background = background;
-		
-		--[[
-		local border = CreateFrame( "Frame", nil, result, nil );
-		border:SetAlpha( BACKGROUND_ALPHA );
-		border:SetFrameStrata( "BACKGROUND" );
-		border:SetBackdrop( {
-			edgeFile = LSM:Fetch("statusbar", E.private.general.glossTex), 
-			edgeSize = 1,
-			insets = { left = 3, right = 3, top = 3, bottom = 3 }
-		} );
-		border:SetBackdropColor( 0, 0, 0, 0 );
-		border:SetBackdropBorderColor( 0, 0, 0 );
-		border:SetPoint( "TOPLEFT", result, "TOPLEFT", -1, 1 );
-		border:SetPoint( "BOTTOMRIGHT", result, "BOTTOMRIGHT", 1, -1 );
-		result.border = border;	
-		]]--
 		
 		result:RegisterEvent( "PLAYER_ENTERING_WORLD" );
 		result:RegisterEvent( "UNIT_AURA" );
